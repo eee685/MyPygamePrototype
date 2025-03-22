@@ -10,38 +10,43 @@ from wall_class import wall
 #import player class
 from player_class import player
 
-#create wall objects
+#create wall objects and store in list
 walls = [
     wall(400, 200, 100, 50)  #test wall; x_axis, y_axis, length, width
 ]
 
-# Create player object
-player_instance = player(5, 50, 50, 40, 40)  #speed, x_position, y_position, width, length
+#create player object
+player_instance = player(50, 50, 40, 40, 5)  #x_position, y_position, width, length, speed
 
 #to control framerate
 clock = pygame.time.Clock()
 
-screen.fill((200, 255, 200))  #make the screen RGB COLOUR, is green for now
 #main loop
 running = True
 while running:
     for event in pygame.event.get():
-        #get pressed keys for player movement
-        keys = pygame.key.get_pressed()
-        player_instance.move(keys)#move player based on keys
 
         if event.type == pygame.QUIT:#set running to false when quitting, stops the while loop
             running = False
 
-    pygame.display.flip()#update display
+    pygame.display.flip() #update screen
+
+    screen.fill((200, 255, 200))  #make the screen RGB COLOUR, is green for now, is in main loop to make screen keep reloading to stop the player from leaving a trail on the screen
+
+    #bring walls list to player_class when drawing the player
+    player_instance.draw(screen, walls=walls)
 
     for w in walls:
         w.draw(screen)#draw walls
-        #draw player
-        player_instance.draw(screen)
+        if w.check_for_collision(player_instance):#calls the collision function
+            print("Collision detected")
+            player_instance.__playerspeed = 0 
+        else:
+            print("no collision")
 
     #update display
     pygame.display.flip()
 
     clock.tick(60)  #limit frame rate to 60 fps
 pygame.quit()  #quit pygame
+
