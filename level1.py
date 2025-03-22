@@ -39,7 +39,7 @@ while running:
     for w in walls:
         w.draw(screen)#draw walls
         if w.check_for_collision(player_instance):#calls the collision function
-            print("Collision detected")
+            print("Collision detected")#will only print when overlapping, but shouldn't overlap, so if printing then error
             player_instance.__playerspeed = 0 
         else:
             print("no collision")
