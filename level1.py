@@ -69,22 +69,26 @@ while running:
     keys = pygame.key.get_pressed()
     direction = (0, 0)  #default direction of block
     if keys[pygame.K_UP]:
-        direction = (0, -1) #moving up to 0
+        direction = (0, -1) #moving up towards 0
     elif keys[pygame.K_DOWN]:
-        direction = (0, 1) #moving down to max number
+        direction = (0, 1) #moving down towards max number
     elif keys[pygame.K_LEFT]:
-        direction = (-1, 0) #moving left to 0
+        direction = (-1, 0) #moving left towards 0
     elif keys[pygame.K_RIGHT]:
-        direction = (1, 0) #moving right to max number
+        direction = (1, 0) #moving right towards max number
+    #else:
+    #   print("keyboard not working") #will continually print the message as long as arrow keys arent pressed
 
     #collisions and movement for pushable blocks
     for block in pushable_blocks:
         #gets the list of blocks, then excludes the block so the original block doesn't collide with itself
-        other_sprites = [b for b in pushable_blocks if b != block] + walls
+        #create the sprites list: player + walls + all other blocks (excluding the current block)
+        sprites = [player_instance] + walls + [b for b in pushable_blocks if b != block]
         if block.check_for_collision(player_instance):  #if player collides with block
             print("got block collision")
-            block.push(direction, sprites=[player_instance] + other_sprites)  #push the block
-        block.draw(screen)  #draw blocks
+            block.push(direction, sprites=sprites)
+        block.draw(screen)#draw blocks
+        print(f"sprites: {sprites}")
 
         #ENEMY STUFF
     for enemy_instance in enemies:
