@@ -96,6 +96,8 @@ while running:
         #check for collision with player sprite, if colliding with player then:
         if enemy_instance.check_for_collision(player_instance):
             print("game over")#need to add code to send player back to menu
+            running = False  # Exit the game loop
+            
     #for debugging
     print(f"Player position: {player_instance.x_position}, {player_instance.y_position}")
     print(f"Block position after: {block.x_position}, {block.y_position}")
