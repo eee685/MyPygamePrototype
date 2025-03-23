@@ -18,7 +18,7 @@ class enemy(wall): #inherits methods and attributes from wall class
             x_move = self.__enemy_speed#set direction to right movement
         else:#else player x position is less than enemy position (player is left)
             x_move = -self.__enemy_speed#set direction of movement to left
-            #y axis movement
+        #y axis movement
         if player_instance.y_position > self.y_position:#if player y position is more than enemy position (player is above)
             y_move = self.__enemy_speed#set direction of movement to up
         else:#else player y position is less than enemy position (player is below)
