@@ -14,6 +14,8 @@ class pushable(wall):
         return pygame.Rect(self.x_position, self.y_position, self.width, self.length)
 
     def push(self, direction, sprites):#block pushing method
+        #to see if block has really been pushed
+        print("block has been pushed")
         x_move, y_move = direction
         # direction, x_move and y_move is change in block position, e.g. x_move=1, then it moves by block_speed amount of pixels one time, negative is reverse direction
         self.is_pushed = False#reset pushed boolean
@@ -38,6 +40,10 @@ class pushable(wall):
         #if no collisions happened, block was successfully pushed
         else:
             self.is_pushed = True
+        #for debigging
+        print(f"Block speed: {self.__block_speed}")#to see if block speed is changing from 0
+        print(f"Sprites: {sprites}")#to see if it is loading sprites to collides
+
 
     def check_for_collision(self, other):
         #call parent collision detection
