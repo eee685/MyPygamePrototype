@@ -10,14 +10,14 @@ class wall:
         self.length = length          #wall length
 
     def get_rect(self):
-        # Calculate the wall's rectangle representation
+        #calculate the wall's rectangle representation
         return pygame.Rect(self.x_position, self.y_position, self.width, self.length)
 
     def draw(self, screen):
         #draw the wall
-        rectangle = self.get_rect()  #get the wall's rectangle
+        rectangle = self.get_rect()  #get wall's rectangle
         pygame.draw.rect(screen, (20, 20, 20), rectangle)  #draw wall with color (RGB) and shape
 
     def check_for_collision(self, other):
-        # Check for collision with another object
+        #check for collision/overlap with another sprite
         return self.get_rect().colliderect(other.get_rect())
