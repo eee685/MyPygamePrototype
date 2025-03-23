@@ -1,3 +1,4 @@
-everything except the pushable works, i think either it is the player not colliding with the pushable, or the pushable not changing positions, or both
-also have to make the level selection menu, and make the enemy make the player go back to the menu when the enemy catches the player
-treat level1 as a an integration testing example, will make real levels by placing the walls around in different locations
+- everything except the pushable works, i think either it is the player not colliding with the pushable, or the pushable not changing positions, or both
+- also have to make the level selection menu, and make the enemy make the player go back to the menu when the enemy catches the player
+- treat level1 as a an integration testing example, will make real levels by placing the walls around in different locations
+- i think that the pushable doesn't work because the player sprite isn't colliding with the pushable's sprite, the enemy collides and i assume the walls also collide. the player sprite is overlapping the pushable sprite, it just doesnt do the collision
