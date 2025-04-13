@@ -2,7 +2,7 @@ import pygame
 pygame.init()
 from wall_class import wall
 
-#define player class, inherits from wall class
+#define pushable class, inherits from wall class
 class pushable(wall):
     def __init__(self, x_position, y_position, width, length, speed):
         #initialize parent wall class
@@ -11,7 +11,11 @@ class pushable(wall):
         self.__block_speed = speed  #block speed
 
     def get_rect(self):#overriding the wall class' get_rect method, polymorphism
-        return pygame.Rect(self.x_position, self.y_position, self.width, self.length)
+        try:
+            return pygame.Rect(self.x_position, self.y_position, self.width, self.length)
+        except AttributeError as e: #if get_rect method is missing or any of the attributes are missing, print an error "e"
+            print(f"error in get_rect, reason: {e}")
+            return None
 
     def push(self, direction, sprites):#block pushing method
         #to see if block has really been pushed
@@ -42,6 +46,10 @@ class pushable(wall):
         #if no collisions happened, block was successfully pushed
         if not collision:
             self.is_pushed = True
+        if not isinstance(direction, (tuple, list)) or len(direction) != 2: #check if direction is 2 elements (x axis and y axis)
+            raise ValueError("direction must be a tuple or list with two elements (x-axis, y-axis)")
+        if not isinstance(sprites, list): #checks if sprites list exists, if not then print an error
+            raise ValueError("sprites must be a list")
         #for debigging
         #print(f"block position after push and after collision check): {self.x_position}, {self.y_position}")
         #print(f"Block speed: {self.__block_speed}")#to see if block speed is changing from 0
@@ -49,8 +57,13 @@ class pushable(wall):
 
 
     def check_for_collision(self, other):
+        try:
         #call parent collision detection
-        return super().check_for_collision(other)
+            return super().check_for_collision(other)
+        except Exception as e:
+            #handle unexpected errors during collision detection, if there is an error, print error "e"
+            print(f"error in check_for_collision, reason: {e}")
+            return False #to indicate that the method failed
 
     def draw(self, screen, color=(0, 0, 255)):
         #draw block on screen
